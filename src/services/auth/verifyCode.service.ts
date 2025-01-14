@@ -1,13 +1,10 @@
-import { api } from "@/utils/api";
+import axios from "axios";
+import { IVerifyCode } from "@/interfaces/IVerifyCode";
+import { API_BASE_URL } from "@/utils/api";
 import { useMutation } from "react-query";
 
-interface IVerifyCode {
-  email: string;
-  verificationCode: string;
-}
-
 const verifyClient = async (data: IVerifyCode) => {
-  const response = await api.post("/verifyClient", data, {
+  const response = await axios.post(`${API_BASE_URL}/verifyClient`, data, {
     method: "POST",
   });
   return response.data;

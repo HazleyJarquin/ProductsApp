@@ -1,9 +1,11 @@
+import axios from "axios";
 import { ILoginRequest } from "@/interfaces/ILoginRquest";
-import { api } from "@/utils/api";
+import { API_BASE_URL } from "@/utils/api";
+
 import { useMutation } from "react-query";
 
 const logiUser = async (data: ILoginRequest) => {
-  const response = await api.post("/login", data, {
+  const response = await axios.post(`${API_BASE_URL}/login`, data, {
     method: "POST",
   });
   return response.data;

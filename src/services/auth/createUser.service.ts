@@ -1,9 +1,11 @@
+import axios from "axios";
 import { IRegisterFormValues } from "@/interfaces/IRegisterFormValues";
-import { api } from "@/utils/api";
+import { API_BASE_URL } from "@/utils/api";
+
 import { useMutation } from "react-query";
 
 const createUser = async (data: IRegisterFormValues) => {
-  const response = await api.post("/createClient", data, {
+  const response = await axios.post(`${API_BASE_URL}/createClient`, data, {
     method: "POST",
   });
   return response.data;

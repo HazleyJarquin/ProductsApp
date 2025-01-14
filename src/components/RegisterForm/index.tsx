@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { IRegisterFormValues } from "@/interfaces/IRegisterFormValues";
-import { useCreateUser } from "@/services/createUser.service";
+
 import { toast } from "sonner";
 import { useState } from "react";
-import { useVerifyClient } from "@/services/verifyCode.service";
+
 import {
   InputOTP,
   InputOTPGroup,
@@ -14,7 +14,9 @@ import {
   InputOTPSlot,
 } from "../ui/input-otp";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { useCreateUser } from "@/services/auth/createUser.service";
+import { useVerifyClient } from "@/services/auth/verifyCode.service";
 
 export const RegisterForm = () => {
   const [showInputOtp, setShowInputOtp] = useState(false);
@@ -66,7 +68,7 @@ export const RegisterForm = () => {
             position: "top-center",
           });
 
-          router.push("/login");
+          router.push("/auth/login");
         },
         onError: (error) => {
           alert(error);

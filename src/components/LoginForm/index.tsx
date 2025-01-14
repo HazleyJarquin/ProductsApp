@@ -6,10 +6,11 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { ILoginRequest } from "@/interfaces/ILoginRquest";
-import { useLoginUser } from "@/services/login.service";
+
 import { toast } from "sonner";
 import { useUserStore } from "@/store/useUserStore";
 import { useRouter } from "next/navigation";
+import { useLoginUser } from "@/services/auth/login.service";
 
 export const LoginForm = () => {
   const { mutateAsync: loginUser } = useLoginUser();
@@ -30,7 +31,7 @@ export const LoginForm = () => {
     await loginUser(data, {
       onSuccess: (data) => {
         setUser(data.result);
-        router.push("/dashboard");
+        router.push("/products");
       },
       onError: (error) => {
         toast.success(String(error), {
@@ -68,7 +69,7 @@ export const LoginForm = () => {
         Login
       </Button>
 
-      <Link href="/register">No tienes cuenta?</Link>
+      <Link href="/auth/register">No tienes cuenta?</Link>
     </form>
   );
 };
