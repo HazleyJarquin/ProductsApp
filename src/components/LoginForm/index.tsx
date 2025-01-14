@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React from "react";
@@ -13,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { useLoginUser } from "@/services/auth/login.service";
 
 export const LoginForm = () => {
-  const { mutateAsync: loginUser } = useLoginUser();
+  const { mutateAsync: loginUser, isLoading } = useLoginUser();
   const { setUser } = useUserStore();
   const router = useRouter();
   const {
@@ -34,7 +35,9 @@ export const LoginForm = () => {
         router.push("/products");
       },
       onError: (error) => {
-        toast.success(String(error), {
+        const errorMessage =
+          (error as any).response?.data?.error || "Ocurrió un error inesperado";
+        toast.success(errorMessage, {
           position: "top-center",
         });
       },
@@ -43,7 +46,7 @@ export const LoginForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-[30%] bg-white flex flex-col items-center gap-3 justify-center rounded-lg shadow-sm p-5"
+      className="w-[90%] sm:w-[90%] md:w-[30%] lg:w-[30%] xl:w-[30%] bg-white flex flex-col items-center gap-3 justify-center rounded-lg shadow-sm p-5"
     >
       <Input
         type="email"
@@ -64,12 +67,13 @@ export const LoginForm = () => {
       )}
       <Button
         type="submit"
-        className="w-full bg-blue-500 text-white rounded-lg p-2"
+        className="w-full bg-blue-500 text-white rounded-lg p-2 hover:bg-blue-800"
+        disabled={isLoading}
       >
-        Login
+        {isLoading ? "Loading..." : "Login"}
       </Button>
 
-      <Link href="/auth/register">No tienes cuenta?</Link>
+      <Link href="/auth/register">Dont have account?</Link>
     </form>
   );
 };

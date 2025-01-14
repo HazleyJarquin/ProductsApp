@@ -71,7 +71,9 @@ export const RegisterForm = () => {
           router.push("/auth/login");
         },
         onError: (error) => {
-          alert(error);
+          toast.error(String(error), {
+            position: "top-center",
+          });
         },
       }
     );
@@ -79,7 +81,7 @@ export const RegisterForm = () => {
 
   return (
     <form
-      className="w-[30%] bg-white flex flex-col items-center gap-3 justify-center rounded-lg shadow-sm p-5"
+      className="w-[90%] sm:w-[90%] md:w-[30%] lg:w-[30%] xl:w-[30%] bg-white flex flex-col items-center gap-3 justify-center rounded-lg shadow-sm p-5"
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
